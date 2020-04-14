@@ -1,6 +1,6 @@
 {
   "name": "wtmp-starter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple boilerplate for webpack powered projects",
   "private": true,
   "scripts": {
@@ -15,11 +15,11 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "eslint": "^6.8.0",
-    "eslint-loader": "^3.0.3",
-    "file-loader": "^5.1.0",
-    "html-webpack-plugin": "^3.2.0",
+    "eslint-loader": "^4.0.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.2.0",
     "terser-webpack-plugin": "^2.3.5",
-    "webpack": "^4.41.6",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2",
