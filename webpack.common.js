@@ -11,13 +11,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new WriteFilePlugin(),
-    new CopyPlugin([
+    new CopyPlugin({
+      patterns: [
       {
         from: 'assets/',
         to: 'assets/',
         context: 'src/',
       },
-    ]),
+    ]}),
     new HtmlWebpackPlugin({
       title: 'WTMP Starter',
       meta: {
