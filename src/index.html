@@ -1,14 +1,54 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="assets/styles.css">
-  </head>
-  <body>
-    <p>
-      Hello! Open the developer tools, please.<br />
-      Start by editing the files in <code>src/</code> folder.
-    </p>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viikko 1 leiska</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+
+    <nav class=topnav>
+        <ul class="nav-items">
+            <li><a href="#">Etusivu</a></li>
+            <li><a href="#">Ruokalistat</a></li>
+            <li><a href="#">Ravintolat</a></li>
+            <li><a href="#">Yhteystiedot</a></li>
+        </ul>
+        <div class="search-container">
+            <form action="#" id="search-form">
+                <input class="search-input" type="text" placeholder="Hae ravintolan nimellä.." name="search">
+            </form>
+        <div>
+    </nav>
+
+    <header class="banner">
+        <div class="heading-container">
+            <h3>Lounari. <br> Missä tänään syötäisiin.</h3>
+        </div>
+        <div class="image-container">
+            <div class="triangle"></div>
+        </div>
+    </header>
+
+   <main>
+       <div class="main-info-container">
+           <h3>Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä. <br>
+                Palvelu etsii lähelläsi olevat lounaspaikat,
+                sekä näyttää niiden päivittäisen lounaslistan. <br>
+                Viikoittaiset lounaslistat ovat myös käytettävissäsi.
+                Pääset niihin klikkaamalla ravintolan logoa.</h3>
+        </div>
+
+        <div class="cards-container">
+            <article class="card">
+                <h5>Ravintola 1</h5>
+            </article>
+            <article class="card">
+                <h5>Ravintola 2</h5>
+            </article>
+        </div>
+   </main>
+
+</body>
 </html>
