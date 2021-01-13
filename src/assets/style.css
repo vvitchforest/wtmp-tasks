@@ -111,21 +111,43 @@ main {
 .cards-container {
     display: flex;
     justify-content: space-between;
-    width: 70vw;
+    width: 80vw;
 
 }
 
-/**Cards*/
+/*Cards*/
 
 .card {
     border: 0.075em dashed  rgb(199, 85, 57);
     border-radius: 0.5em;
-    width: 30vw;;
-    height: 20vh;
+    width: 35vw;;
+    height: auto;
+    position: relative;
 }
 
-.card > h5 {    
+.card > h5 {
     padding: 1em;
+}
+
+/*Card uttons*/
+
+.language-btn {
+  position: absolute;
+  top: 1em;
+  right: 16em;
+}
+
+.sort-btn {
+  position: absolute;
+  top: 1em;
+  right: 12em;
+}
+
+.random-btn {
+  position: absolute;
+  top: 1em;
+  right: 6.25em;
+
 }
 
 
