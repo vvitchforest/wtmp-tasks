@@ -1,7 +1,7 @@
 {
-  "name": "wtmp-starter",
+  "name": "wtmp-examples",
   "version": "1.0.4",
-  "description": "Simple boilerplate for webpack powered projects",
+  "description": "Some examples for course tasks",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
