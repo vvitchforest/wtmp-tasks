@@ -1,20 +1,30 @@
-import menuData from './assets/menu.json';
-console.log(menuData);
+import SodexoData from './modules/sodexo-data';
 
 const menuCard = document.querySelector('#card1');
+const main = document.querySelector('main');
+const btnContainer = document.querySelector('#btn-container');
+btnContainer.classList.add('btn-container');
+const menuList = document.createElement('ul');
 const languageBtn = document.createElement('button');
 languageBtn.classList.add('language-btn');
 languageBtn.innerHTML = 'FI/EN';
+const randomBtn = document.createElement('button');
+randomBtn.classList.add('random-btn');
+randomBtn.innerHTML = 'RANDOM';
+const sortBtn = document.createElement('button');
+sortBtn.classList.add('sort-btn');
+sortBtn.innerHTML = 'SORT';
 
-let coursesFi = [];
-let coursesEn = [];
+btnContainer.appendChild(languageBtn);
+btnContainer.appendChild(randomBtn);
+btnContainer.appendChild(sortBtn);
+menuCard.appendChild(menuList);
+main.appendChild(btnContainer);
 
-for(let i = 1; i <= Object.values(menuData.courses).length; i++) {
-  coursesFi.push(menuData.courses[i].title_fi);
-  coursesEn.push(menuData.courses[i].title_en);
-}
-
-let menuList = document.createElement('ul');
+/**
+ * Creates lunch menu list items into menu list
+ * @param {Array} menu lunch menu array
+ */
 
 const createMenu = (menu) => {
   menuList.innerHTML = '';
@@ -25,33 +35,30 @@ const createMenu = (menu) => {
   });
 };
 
-createMenu(coursesFi);
-
-menuCard.appendChild(menuList);
-menuCard.appendChild(languageBtn);
-menuCard.classList.toggle('fin');
+/**
+ * Switches language fi/en
+ */
 
 const changeLanguage = () => {
   menuCard.classList.toggle('fin');
-    menuCard.classList.toggle('eng');
-  if(menuCard.classList.contains('eng')) {
-    createMenu(coursesEn);
+  menuCard.classList.toggle('eng');
+  if (menuCard.classList.contains('eng')) {
+    createMenu(SodexoData.coursesEn);
   } else {
-    createMenu(coursesFi);
+    createMenu(SodexoData.coursesFi);
   }
   menuCard.appendChild(menuList);
 };
 
-languageBtn.addEventListener('click', changeLanguage);
-
-const sortBtn = document.createElement('button');
-sortBtn.classList.add('sort-btn');
-sortBtn.innerHTML = 'SORT';
-menuCard.appendChild(sortBtn);
-
+/**
+ *
+ * @param {Array} menu
+ * @param {string} order
+ * @returns Soreted menu array
+ */
 const sortAlphabetically = (menu, order) => {
   let sortedArray;
-  if(order === 'asc') {
+  if (order === 'asc') {
     sortedArray = menu.sort();
   } else if (order === 'desc') {
     sortedArray = menu.sort();
@@ -60,31 +67,48 @@ const sortAlphabetically = (menu, order) => {
   return sortedArray;
 };
 
-sortBtn.addEventListener('click', () => {
-  if(menuCard.classList.contains('fin')) {
-    createMenu(sortAlphabetically(coursesFi, 'asc'));
+/**
+ * Shows alphabetically sorted menu
+ */
+
+const showSortedMenu = () => {
+  if (menuCard.classList.contains('fin')) {
+    createMenu(sortAlphabetically(SodexoData.coursesFi, 'asc'));
   } else {
-    createMenu(sortAlphabetically(coursesEn, 'asc'));
+    createMenu(sortAlphabetically(SodexoData.coursesEn, 'asc'));
   }
-});
-
-const randomBtn = document.createElement('button');
-randomBtn.classList.add('random-btn');
-randomBtn.innerHTML = 'RANDOM';
-menuCard.appendChild(randomBtn);
-
+};
+/**
+ * Selects random dish from lunch menu
+ * @param {Array} menu
+ * @returns random dish name
+ */
 const randomCourse = (menu) => {
   const random = menu[Math.floor(Math.random() * menu.length)];
   return random;
 };
 
-randomBtn.addEventListener('click', () => {
-    menuList.innerHTML = '';
-    let listItem = document.createElement('li');
-  if(menuCard.classList.contains('fin')) {
-    listItem.innerHTML = randomCourse(coursesFi);
+/**
+ * Prints random dish into html card
+ */
+
+const showRandomCourse = () => {
+  menuList.innerHTML = '';
+  let listItem = document.createElement('li');
+  if (menuCard.classList.contains('fin')) {
+    listItem.innerHTML = randomCourse(SodexoData.coursesFi);
   } else {
-    listItem.innerHTML = randomCourse(coursesEn);
+    listItem.innerHTML = randomCourse(SodexoData.coursesEn);
   }
-    menuList.appendChild(listItem);
-});
+  menuList.appendChild(listItem);
+};
+
+
+//Initialisation
+menuCard.classList.toggle('fin');
+createMenu(SodexoData.coursesFi);
+
+//Event listeners
+languageBtn.addEventListener('click', changeLanguage);
+sortBtn.addEventListener('click', showSortedMenu);
+randomBtn.addEventListener('click', showRandomCourse);
