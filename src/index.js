@@ -1,10 +1,14 @@
 import SodexoData from './modules/sodexo-data';
+import FazerData from './modules/fazer-data';
+
 
 const menuCard = document.querySelector('#card1');
+const menuCardFazer = document.querySelector('#card2');
 const main = document.querySelector('main');
 const btnContainer = document.querySelector('#btn-container');
 btnContainer.classList.add('btn-container');
 const menuList = document.createElement('ul');
+const menuListFazer = document.createElement('ul');
 const languageBtn = document.createElement('button');
 languageBtn.classList.add('language-btn');
 languageBtn.innerHTML = 'FI/EN';
@@ -19,6 +23,7 @@ btnContainer.appendChild(languageBtn);
 btnContainer.appendChild(randomBtn);
 btnContainer.appendChild(sortBtn);
 menuCard.appendChild(menuList);
+menuCardFazer.appendChild(menuListFazer);
 main.appendChild(btnContainer);
 
 /**
@@ -26,14 +31,26 @@ main.appendChild(btnContainer);
  * @param {Array} menu lunch menu array
  */
 
-const createMenu = (menu) => {
-  menuList.innerHTML = '';
+const createMenu = (menu, list) => {
+  list.innerHTML = '';
   menu.forEach((course) => {
     let listItem = document.createElement('li');
     listItem.innerHTML = course;
-    menuList.appendChild(listItem);
+    list.appendChild(listItem);
   });
 };
+
+
+/*const createMenuFazer = (menu) => {
+  menuListFazer.innerHTML = '';
+  menu.forEach((course) => {
+    let listItem = document.createElement('li');
+    listItem.innerHTML = course;
+    menuListFazer.appendChild(listItem);
+  });
+};*/
+
+console.log(FazerData);
 
 /**
  * Switches language fi/en
@@ -43,12 +60,16 @@ const changeLanguage = () => {
   menuCard.classList.toggle('fin');
   menuCard.classList.toggle('eng');
   if (menuCard.classList.contains('eng')) {
-    createMenu(SodexoData.coursesEn);
+    createMenu(SodexoData.coursesEn, menuList);
   } else {
-    createMenu(SodexoData.coursesFi);
+    createMenu(SodexoData.coursesFi, menuList);
   }
   menuCard.appendChild(menuList);
 };
+
+
+
+
 
 /**
  *
@@ -78,6 +99,7 @@ const showSortedMenu = () => {
     createMenu(sortAlphabetically(SodexoData.coursesEn, 'asc'));
   }
 };
+
 /**
  * Selects random dish from lunch menu
  * @param {Array} menu
@@ -103,10 +125,13 @@ const showRandomCourse = () => {
   menuList.appendChild(listItem);
 };
 
+console.log(FazerData.maanantai);
 
 //Initialisation
 menuCard.classList.toggle('fin');
-createMenu(SodexoData.coursesFi);
+createMenu(SodexoData.coursesFi, menuList);
+console.log(FazerData);
+createMenu(FazerData.FazerDataFi.coursesFi, menuListFazer);
 
 //Event listeners
 languageBtn.addEventListener('click', changeLanguage);
