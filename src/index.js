@@ -52,7 +52,7 @@ for (let i = 0; i < 1500; i++) {
     minGuessCount = currentGuessCount;
   }
 };
-//Average number of total guess count is around 5.6
+//Average number of total guess count is around 5.8
 let averageGuesses = (totalGuesses / iterations).toFixed(2);
 console.log("Average number of total guess count: " + averageGuesses);
 //At most it takes 7 guesses (max guess)
