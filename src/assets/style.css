@@ -101,6 +101,7 @@ main {
     align-items: center;
     padding: 2em;
     position: relative;
+    margin-bottom: 5em;
 
 }
 
@@ -139,6 +140,10 @@ transform: translateX(-50%);
 
 .card > h5 {
     padding: 1em;
+}
+
+.card > ul {
+  margin-left: 2em;
 }
 
 /*Card uttons*/
