@@ -1,6 +1,7 @@
 import FazerMenuFi from '../assets/fazer-menu-fi.json';
 import FazerMenuEn from '../assets/fazer-menu-en.json';
 
+console.log(FazerMenuEn);
 let coursesEn = [];
 let coursesFi = [];
 
@@ -41,6 +42,7 @@ const parsedFi = parseFazerMenuFi(FazerMenuFi);
 const parsedEn = parseFazerMenuEn(FazerMenuEn);
 joinMealsFi(parsedFi, 'fin');
 joinMealsFi(parsedEn, 'eng');
+
 
 const FazerDataFi = { coursesFi };
 const FazerDataEn = { coursesEn };

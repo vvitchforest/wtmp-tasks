@@ -40,35 +40,20 @@ const createMenu = (menu, list) => {
   });
 };
 
-
-/*const createMenuFazer = (menu) => {
-  menuListFazer.innerHTML = '';
-  menu.forEach((course) => {
-    let listItem = document.createElement('li');
-    listItem.innerHTML = course;
-    menuListFazer.appendChild(listItem);
-  });
-};*/
-
-console.log(FazerData);
-
 /**
- * Switches language fi/en
+ * Switches language fi/en in Sodexo menu
  */
 
-const changeLanguage = () => {
-  menuCard.classList.toggle('fin');
-  menuCard.classList.toggle('eng');
-  if (menuCard.classList.contains('eng')) {
-    createMenu(SodexoData.coursesEn, menuList);
+const changeLanguage = (card, list, menuFi, menuEn) => {
+  card.classList.toggle('fin');
+  card.classList.toggle('eng');
+  if (card.classList.contains('eng')) {
+    createMenu(menuEn, list);
   } else {
-    createMenu(SodexoData.coursesFi, menuList);
+    createMenu(menuFi, list);
   }
-  menuCard.appendChild(menuList);
+  card.appendChild(list);
 };
-
-
-
 
 
 /**
@@ -92,11 +77,12 @@ const sortAlphabetically = (menu, order) => {
  * Shows alphabetically sorted menu
  */
 
-const showSortedMenu = () => {
-  if (menuCard.classList.contains('fin')) {
-    createMenu(sortAlphabetically(SodexoData.coursesFi, 'asc'));
+const showSortedMenu = (card, list, menuFi, menuEn) => {
+  if (card.classList.contains('fin')) {
+
+    createMenu(sortAlphabetically(menuFi, 'asc'), list);
   } else {
-    createMenu(sortAlphabetically(SodexoData.coursesEn, 'asc'));
+    createMenu(sortAlphabetically(menuEn, 'asc'), list);
   }
 };
 
@@ -114,26 +100,35 @@ const randomCourse = (menu) => {
  * Prints random dish into html card
  */
 
-const showRandomCourse = () => {
-  menuList.innerHTML = '';
+const showRandomCourse = (card, list, menuFi, menuEn ) => {
+  list.innerHTML = '';
   let listItem = document.createElement('li');
-  if (menuCard.classList.contains('fin')) {
-    listItem.innerHTML = randomCourse(SodexoData.coursesFi);
+  if (card.classList.contains('fin')) {
+    listItem.innerHTML = randomCourse(menuFi);
   } else {
-    listItem.innerHTML = randomCourse(SodexoData.coursesEn);
+    listItem.innerHTML = randomCourse(menuEn);
   }
-  menuList.appendChild(listItem);
+  list.appendChild(listItem);
 };
-
-console.log(FazerData.maanantai);
 
 //Initialisation
 menuCard.classList.toggle('fin');
+menuCardFazer.classList.toggle('fin');
 createMenu(SodexoData.coursesFi, menuList);
-console.log(FazerData);
 createMenu(FazerData.FazerDataFi.coursesFi, menuListFazer);
 
 //Event listeners
-languageBtn.addEventListener('click', changeLanguage);
-sortBtn.addEventListener('click', showSortedMenu);
-randomBtn.addEventListener('click', showRandomCourse);
+languageBtn.addEventListener('click', () => {
+  changeLanguage(menuCard, menuList, SodexoData.coursesFi, SodexoData.coursesEn);
+  changeLanguage(menuCardFazer, menuListFazer, FazerData.FazerDataFi.coursesFi, FazerData.FazerDataEn.coursesEn);
+});
+
+sortBtn.addEventListener('click', () => {
+  showSortedMenu(menuCard, menuList, SodexoData.coursesFi, SodexoData.coursesEn);
+  showSortedMenu(menuCardFazer, menuListFazer, FazerData.FazerDataFi.coursesFi, FazerData.FazerDataEn.coursesEn);
+});
+randomBtn.addEventListener('click', () => {
+  showRandomCourse(menuCard, menuList, SodexoData.coursesFi, SodexoData.coursesEn);
+  showRandomCourse(menuCardFazer, menuListFazer, FazerData.FazerDataFi.coursesFi, FazerData.FazerDataEn.coursesEn);
+
+});
