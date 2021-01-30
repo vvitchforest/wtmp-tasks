@@ -16,7 +16,7 @@
     width: 100vw;
     padding: 2em;
     position: relative;
-   
+
 }
 .topnav a {
     display: none;
@@ -90,12 +90,12 @@
     margin: auto;
     font-size: 1.125em;
     width: 80%;
-    line-height: 1.4em; 
+    line-height: 1.4em;
     font-family: "Lato", sans-serif;
 }
 
 .image-container::before {
-    content: ""; 
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
@@ -111,18 +111,26 @@
 
 /*MAIN*/
 .main-info-container {
-    display: none; 
+    display: none;
 }
 
 /*CARDS*/
+
+.card {
+  flex-direction: column;
+  align-items: center;
+}
+
 .card-menu-container {
     margin-top: 1em;
 }
 
+.card-info-container > h2 {
+  position: relative;
+  padding-bottom: 0.5em;
+}
+
 .card-location-container {
-    right: 50%;
-    top: 12%;
-    transform: translateX(+50%);
-    margin-right: 0; 
+   position: relative;
 }
 

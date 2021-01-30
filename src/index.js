@@ -1,32 +1,30 @@
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
+  });
+}
+
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
 
 
 const menuCard = document.querySelector('#card1');
 const menuCardFazer = document.querySelector('#card2');
-const main = document.querySelector('main');
+const languageBtn = document.querySelector('.language-btn');
+const randomBtn = document.querySelector('.random-btn');
+const sortBtn = document.querySelector('.sort-btn');
 const btnContainer = document.querySelector('#btn-container');
 btnContainer.classList.add('btn-container');
 const menuList = document.createElement('ul');
 menuList.classList.add('card-menu-container');
 const menuListFazer = document.createElement('ul');
 menuListFazer.classList.add('card-menu-container');
-const languageBtn = document.createElement('button');
-languageBtn.classList.add('language-btn');
-languageBtn.innerHTML = 'FI/EN';
-const randomBtn = document.createElement('button');
-randomBtn.classList.add('random-btn');
-randomBtn.innerHTML = 'RANDOM';
-const sortBtn = document.createElement('button');
-sortBtn.classList.add('sort-btn');
-sortBtn.innerHTML = 'SORT';
-
-btnContainer.appendChild(languageBtn);
-btnContainer.appendChild(randomBtn);
-btnContainer.appendChild(sortBtn);
 menuCard.appendChild(menuList);
 menuCardFazer.appendChild(menuListFazer);
-main.appendChild(btnContainer);
 
 /**
  * Creates lunch menu list items into menu list
@@ -114,10 +112,14 @@ const showRandomCourse = (card, list, menuFi, menuEn ) => {
 };
 
 //Initialisation
+
+
+
 menuCard.classList.toggle('fin');
 menuCardFazer.classList.toggle('fin');
 createMenu(SodexoData.coursesFi, menuList);
 createMenu(FazerData.FazerDataFi.coursesFi, menuListFazer);
+
 
 //Event listeners
 languageBtn.addEventListener('click', () => {
