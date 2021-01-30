@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="description"
+        content="Lounari on sovellus, joka etsii lähellä olevat lounaspaikat, ja näyttää niiden päivittäiset ruokalistat.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leiska Viikko2</title>
-    <link rel="stylesheet" href="./assets/style.css">
+    <title>Viikko 2 leiska</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" media="screen and (max-width: 1024px)" href="assets/mobile.css">
+    <link rel="stylesheet" media="screen and (max-width: 768px)" href="/assets/mobile-small.css">
+    <link rel="stylesheet" media="screen and (max-width: 400px)" href="/assets/mobile-xsmall.css">
 </head>
+
 <body>
+    <div>
 
     <nav class=topnav>
         <ul class="nav-items">
@@ -15,40 +25,118 @@
             <li><a href="#">Ravintolat</a></li>
             <li><a href="#">Yhteystiedot</a></li>
         </ul>
-        <div class="search-container">
-            <form action="#" id="search-form">
+        <h1 id="mobile-title">Lounari.</h1>
+        <form action="#" id="search-form">
+            <div class=input-container>
+                <button id="search-btn" type="submit" aria-label="search-restaurant">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                </button>
                 <input class="search-input" type="text" placeholder="Hae ravintolan nimellä.." name="search">
-            </form>
-        <div>
+            </div>
+        </form>
+        <div class="mobile-icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="ionicon" viewBox="0 0 512 512">
+                <title>Menu</title>
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32"
+                    d="M80 160h352M80 256h352M80 352h352" />
+            </svg>
+        </div>
     </nav>
+
+
 
     <header class="banner">
         <div class="heading-container">
-            <h3>Lounari. <br> Missä tänään syötäisiin.</h3>
+            <div id="banner-headings">
+                <h1>Lounari.</h1>
+                <h2>Missä tänään syötäisiin.</h3>
+            </div>
         </div>
         <div class="image-container">
             <div class="triangle"></div>
+            <p class="mobile-info">Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä.
+                Palvelu etsii lähelläsi olevat lounaspaikat,
+                sekä näyttää niiden päivittäisen lounaslistan.
+                Viikoittaiset lounaslistat ovat myös käytettävissäsi.
+                Pääset niihin klikkaamalla ravintolan logoa.</p>
         </div>
     </header>
 
-   <main>
-       <div class="main-info-container">
-           <h3>Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä. <br>
+    <main>
+        <div class="main-info-container">
+            <p>Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä.
                 Palvelu etsii lähelläsi olevat lounaspaikat,
-                sekä näyttää niiden päivittäisen lounaslistan. <br>
+                sekä näyttää niiden päivittäisen lounaslistan.
                 Viikoittaiset lounaslistat ovat myös käytettävissäsi.
-                Pääset niihin klikkaamalla ravintolan logoa.</h3>
+                Pääset niihin klikkaamalla ravintolan logoa.</p>
         </div>
+        <h1>Ravintolat</h1>
 
         <div class="cards-container">
             <article class="card" id="card1">
-                <h5>Ravintola 1</h5>
+
+                <div class="card-info-container">
+                    <h2>Ravintola 1</h2>
+                    <div class="card-location-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-map-pin">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <div class="location">500m</div>
+                    </div>
+
+                </div>
             </article>
             <article class="card" id="card2">
-                <h5>Ravintola 2</h5>
+
+                <div class="card-info-container">
+                    <h2>Ravintola 2</h2>
+                    <div class="card-location-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-map-pin">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <div class="location">500m</div>
+                    </div>
+
+                </div>
             </article>
+            <div class="card" id="add-restaurant-container">
+                <button id="add-restaurant-btn" name="add-restaurant">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-plus">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                </button>
+            </div>
         </div>
         <div id="btn-container"></div>
-   </main>
+    </main>
+
+
+    <script>
+        document.querySelector('.mobile-icon-container').addEventListener('click', () => {
+            const topNav = document.querySelector('.topnav');
+            if(topNav.className === 'topnav') {
+                topNav.className += ' mobile';
+            } else {
+                topNav.className = 'topnav';
+            }
+        });
+    </script>
+
+
 </body>
+
 </html>

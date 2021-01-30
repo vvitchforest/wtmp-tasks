@@ -1,0 +1,128 @@
+:root {
+    --dustyrose: #cca2a1;
+    --dusk: #202332;
+    --brick: #943847;
+    --charcoal: #343A40;
+    --greymist: #9BADBF;
+    --black: #000000;
+    --sky: #1186B0;
+    --pistachio: #a1cca5;
+    --moss: #355F35;
+}
+
+/*NAVIGATION*/
+.topnav {
+    background-color: var(--dustyrose);
+    width: 100vw;
+    padding: 2em;
+    position: relative;
+   
+}
+.topnav a {
+    display: none;
+}
+
+.nav-items  {
+    flex-direction: column;
+    flex: 1;
+    margin-top: 3em;
+}
+
+.topnav.mobile {
+    position: relative;
+}
+
+.topnav.mobile a {
+    display: block;
+    float: none;
+}
+
+.search-input {
+    padding-left: 1em;
+
+}
+
+.mobile-icon-container {
+    background: var(--dustyrose);
+    color: black;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 2.75em 2.5em;
+}
+
+.mobile-icon-container > svg {
+    height: 2em;
+    width: 2em;
+}
+
+.search-input, #search-btn {
+    border: none;
+    margin-top: 0.5em;
+}
+
+#mobile-title {
+    display: block;
+    position: absolute;
+    left: 22%;
+    top: 0;
+    margin-top: 1.75em;
+    font-family: "Roboto Slab", serif;
+    font-weight: 800;
+}
+
+/*BANNER*/
+.banner {
+    height: 30vh;
+}
+
+.heading-container, .triangle {
+    display: none;
+}
+
+.mobile-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(-1);
+    display: flex;
+    margin: auto;
+    font-size: 1.125em;
+    width: 80%;
+    line-height: 1.4em; 
+    font-family: "Lato", sans-serif;
+}
+
+.image-container::before {
+    content: ""; 
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.image-container {
+    position: relative;
+}
+
+
+/*MAIN*/
+.main-info-container {
+    display: none; 
+}
+
+/*CARDS*/
+.card-menu-container {
+    margin-top: 1em;
+}
+
+.card-location-container {
+    right: 50%;
+    top: 12%;
+    transform: translateX(+50%);
+    margin-right: 0; 
+}
+

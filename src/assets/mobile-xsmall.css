@@ -1,0 +1,46 @@
+:root {
+    --dustyrose: #cca2a1;
+    --dusk: #202332;
+    --brick: #943847;
+    --charcoal: #343A40;
+    --greymist: #9BADBF;
+    --black: #000000;
+    --sky: #1186B0;
+    --pistachio: #a1cca5;
+    --moss: #355F35;
+}
+
+/*NAVBAR*/
+#mobile-title {
+    display: none;
+}
+
+/*BANNER*/
+
+.banner {
+    height: 40vh;
+}
+
+.mobile-info {
+    font-size: 1em;
+    display: block;
+}
+
+.mobile-info::before {
+    content: "Lounari";
+    display: block;
+    background-color: var(--dustyrose);
+    font-family: "Roboto Slab", serif;
+    font-weight: 800;
+    width: 50%;
+    margin: auto;
+    padding: 0.25em 0.5em;
+    text-align: center;
+    margin-bottom: 0.5em;  
+}
+
+/*CARDS*/
+
+.card-menu-container {
+    margin-top: 2em;
+}

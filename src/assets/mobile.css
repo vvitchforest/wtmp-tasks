@@ -1,0 +1,89 @@
+
+@font-face {
+    font-family: 'Lato';
+    src: url(fonts/Lato/Lato-Regular.ttf),
+    url(fonts/Lato/Lato-Bold.ttf),
+    url(fonts/Lato/Lato-Black.ttf);
+}
+
+:root {
+    --dustyrose: #cca2a1;
+    --dusk: #202332;
+    --brick: #943847;
+    --charcoal: #343A40;
+    --greymist: #9BADBF;
+    --black: #000000;
+    --sky: #1186B0;
+    --pistachio: #a1cca5;
+    --moss: #355F35;
+}
+
+/*NAVBAR*/
+.topnav {
+    width: 90vw;
+}
+
+.nav-items {
+    flex: 2;
+}
+
+/*CARDS*/
+.main-info-container {
+    width: 90vw;
+}
+
+.cards-container {
+    width: 90vw;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 90vw;
+    flex-direction: column;
+}
+
+.card-info-container > h2 {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    font-size: 1.5em;
+}
+
+.img-container {
+    padding-bottom: 2em;
+}
+
+.img-container > img {
+    border-radius: 50%;
+}
+
+.card-menu-container {
+    padding-top: 5em;
+}
+
+.card-menu-container > li {
+    font-size: 1.25em;
+}
+
+.card-location-container {
+    right: 0;
+    top: 0;
+    margin-right: 1em;
+}
+
+.card-location-container > svg {
+    width: 1.5em;
+    height: 1.75em;
+}
+
+.location {
+    font-size: 1.25em;
+    padding-left: 0.5em;
+}
+
+#add-restaurant-btn {
+    width: 3em;
+    height: 3em;
+}
