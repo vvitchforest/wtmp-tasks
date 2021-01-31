@@ -250,11 +250,12 @@ main > h1 {
 .card {
     display: flex;
     flex-direction: column;
-    border: 0.075em solid var(--charcoal);
+    border: none;
     border-radius: 0.5em;
     padding: 1.5em;
     width: 38vw;
     margin-bottom: 2em;
+    box-shadow: 2px 3px 15px var(--greymist);
 }
 
 
