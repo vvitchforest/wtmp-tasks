@@ -1,3 +1,10 @@
 body {
   margin: 10%;
 }
+
+.touch {
+  width: 200px;
+  height: 200px;
+  background-color: teal;
+
+}
