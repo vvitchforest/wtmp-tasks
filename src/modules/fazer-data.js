@@ -1,35 +1,48 @@
-import FazerMenuFi from '../assets/fazer-menu-fi.json';
-import FazerMenuEn from '../assets/fazer-menu-en.json';
+let date = new Date();
+date.setFullYear(date.getFullYear() - 1);
+date = date.toISOString().split('T')[0];
+console.log(date);
 
-let coursesEn = [];
-let coursesFi = [];
+const weeklyUrlFi = `https://www.fazerfoodco.fi/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=${date}`;
+const weeklyUrlEn = `https://www.fazerfoodco.fi/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=${date}`;
+
 
 const parseMenu = (menuData) => {
   let meals = [];
-  menuData.LunchMenus[0].SetMenus.forEach((setMenu) => {
-    meals.push(setMenu);
-  });
+  if (menuData.LunchMenus != null && menuData.LunchMenus.length > 0) {
+    console.log(menuData);
+    menuData.LunchMenus[0].SetMenus.forEach((setMenu) => {
+      meals.push(setMenu);
+    });
+  }
   return meals;
 };
 
-const joinMeals = (parsedMenu, coursesArray) => {
-parsedMenu.forEach((setMenu) => {
-  const meals = setMenu.Meals.map(x => x.Name).join(", ");
-  coursesArray.push(meals);
-});
+const joinMeals = (parsedMenu, lang) => {
+  let coursesArray = [];
+  if (parsedMenu.length < 1) {
+
+    if(lang === 'fi') {
+      coursesArray.push('Tälle päivälle ei löytynyt aterioita');
+    } else {
+      coursesArray.push('No meals were found for this day');
+    }
+
+  } else {
+    parsedMenu.forEach((setMenu) => {
+      const meals = setMenu.Meals.map(x => x.Name).join(", ");
+      coursesArray.push(meals);
+    });
+  }
+  return coursesArray;
 };
 
-const parsedFi = parseMenu(FazerMenuFi);
-const parsedEn = parseMenu(FazerMenuEn);
-joinMeals(parsedFi, coursesFi);
-joinMeals(parsedEn, coursesEn);
-
-const FazerDataFi = {coursesFi};
-const FazerDataEn = {coursesEn};
-
-const FazerData = {
-  FazerDataFi: FazerDataFi,
-  FazerDataEn: FazerDataEn,
+const getDailyMenu = (lang, data) => {
+  return (lang === 'fi') ?
+    joinMeals(parseMenu(data), 'fi') :
+    joinMeals(parseMenu(data), 'en');
 };
+
+const FazerData = { getDailyMenu, weeklyUrlFi, weeklyUrlEn };
 
 export default FazerData;

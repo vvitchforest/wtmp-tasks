@@ -10,7 +10,7 @@ if ('serviceWorker' in navigator) {
 
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
-
+import { fetchGet } from './modules/network';
 
 const menuCard = document.querySelector('#card1');
 const menuCardFazer = document.querySelector('#card2');
@@ -55,7 +55,6 @@ const changeLanguage = (card, list, menuFi, menuEn) => {
   card.appendChild(list);
 };
 
-
 /**
  *
  * @param {Array} menu
@@ -79,7 +78,6 @@ const sortAlphabetically = (menu, order) => {
 
 const showSortedMenu = (card, list, menuFi, menuEn) => {
   if (card.classList.contains('fin')) {
-
     createMenu(sortAlphabetically(menuFi, 'asc'), list);
   } else {
     createMenu(sortAlphabetically(menuEn, 'asc'), list);
@@ -100,7 +98,7 @@ const randomCourse = (menu) => {
  * Prints random dish into html card
  */
 
-const showRandomCourse = (card, list, menuFi, menuEn ) => {
+const showRandomCourse = (card, list, menuFi, menuEn) => {
   list.innerHTML = '';
   let listItem = document.createElement('li');
   if (card.classList.contains('fin')) {
@@ -111,28 +109,43 @@ const showRandomCourse = (card, list, menuFi, menuEn ) => {
   list.appendChild(listItem);
 };
 
-//Initialisation
+const init = async () => {
+  menuCard.classList.toggle('fin');
+  menuCardFazer.classList.toggle('fin');
+  let dailyMenuJson;
+  let weeklyMenuJsonFi;
+  let weeklyMenuJsonEn;
 
+  try {
+    dailyMenuJson = await fetchGet(SodexoData.dailyUrl);
+    createMenu(SodexoData.getMenu('fi', dailyMenuJson), menuList);
+  }
+  catch (error){
+    console.error(error);
+  }
 
+  try {
+    weeklyMenuJsonFi = await fetchGet(FazerData.weeklyUrlFi, true);
+    createMenu(FazerData.getDailyMenu('fi', weeklyMenuJsonFi), menuListFazer);
+    weeklyMenuJsonEn = await fetchGet(FazerData.weeklyUrlEn, true);
+  } catch (error){
+    console.error(error);
+  }
 
-menuCard.classList.toggle('fin');
-menuCardFazer.classList.toggle('fin');
-createMenu(SodexoData.coursesFi, menuList);
-createMenu(FazerData.FazerDataFi.coursesFi, menuListFazer);
+  languageBtn.addEventListener('click', () => {
+    changeLanguage(menuCard, menuList, SodexoData.getMenu('fi', dailyMenuJson), SodexoData.getMenu('en', dailyMenuJson));
+    changeLanguage(menuCardFazer, menuListFazer, FazerData.getDailyMenu('fi', weeklyMenuJsonFi) ,FazerData.getDailyMenu('en', weeklyMenuJsonEn));
+  });
 
+  sortBtn.addEventListener('click', () => {
+    showSortedMenu(menuCard, menuList, SodexoData.getMenu('fi', dailyMenuJson), SodexoData.getMenu('en', dailyMenuJson));
+    showSortedMenu(menuCardFazer, menuListFazer, FazerData.getDailyMenu('fi', weeklyMenuJsonFi) ,FazerData.getDailyMenu('en', weeklyMenuJsonEn));
+  });
+  randomBtn.addEventListener('click', () => {
+    showRandomCourse(menuCard, menuList, SodexoData.getMenu('fi', dailyMenuJson), SodexoData.getMenu('en', dailyMenuJson));
+    showRandomCourse(menuCardFazer, menuListFazer, FazerData.getDailyMenu('fi', weeklyMenuJsonFi) ,FazerData.getDailyMenu('en', weeklyMenuJsonEn));
 
-//Event listeners
-languageBtn.addEventListener('click', () => {
-  changeLanguage(menuCard, menuList, SodexoData.coursesFi, SodexoData.coursesEn);
-  changeLanguage(menuCardFazer, menuListFazer, FazerData.FazerDataFi.coursesFi, FazerData.FazerDataEn.coursesEn);
-});
+  });
+};
 
-sortBtn.addEventListener('click', () => {
-  showSortedMenu(menuCard, menuList, SodexoData.coursesFi, SodexoData.coursesEn);
-  showSortedMenu(menuCardFazer, menuListFazer, FazerData.FazerDataFi.coursesFi, FazerData.FazerDataEn.coursesEn);
-});
-randomBtn.addEventListener('click', () => {
-  showRandomCourse(menuCard, menuList, SodexoData.coursesFi, SodexoData.coursesEn);
-  showRandomCourse(menuCardFazer, menuListFazer, FazerData.FazerDataFi.coursesFi, FazerData.FazerDataEn.coursesEn);
-
-});
+init();

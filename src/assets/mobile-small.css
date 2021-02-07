@@ -14,10 +14,10 @@
 .topnav {
     background-color: var(--dustyrose);
     width: 100vw;
-    padding: 2em;
-    position: relative;
-
+    height: 4em;
+    padding: 0 2em;
 }
+
 .topnav a {
     display: none;
 }
@@ -25,16 +25,27 @@
 .nav-items  {
     flex-direction: column;
     flex: 1;
-    margin-top: 3em;
+}
+
+.nav-items.mobile {
+  margin-top: 4em;
 }
 
 .topnav.mobile {
-    position: relative;
+  position: relative;
+  height: auto;
+  padding-bottom: 1em;
 }
 
 .topnav.mobile a {
-    display: block;
+    display: inline-block;
     float: none;
+    font-size: 1em;
+}
+
+#search-form {
+  padding-top: 0.5em;
+  flex: 2;
 }
 
 .search-input {
@@ -47,9 +58,9 @@
     color: black;
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    margin: 2.75em 2.5em;
+    top: 1em;
+    left: 2em;
+
 }
 
 .mobile-icon-container > svg {
@@ -62,15 +73,7 @@
     margin-top: 0.5em;
 }
 
-#mobile-title {
-    display: block;
-    position: absolute;
-    left: 22%;
-    top: 0;
-    margin-top: 1.75em;
-    font-family: "Roboto Slab", serif;
-    font-weight: 800;
-}
+
 
 /*BANNER*/
 .banner {
@@ -81,29 +84,43 @@
     display: none;
 }
 
-.mobile-info {
+.mobile-title {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scaleX(-1);
     display: flex;
-    margin: auto;
+    flex-direction: column;
+    align-items: center;
     font-size: 1.125em;
     width: 80%;
-    line-height: 1.4em;
-    font-family: "Lato", sans-serif;
-
+    font-family: "Roboto Slab", serif;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.06em;
 }
+
+.mobile-title > h1 {
+  font-size: 3em;
+}
+
+.mobile-title > h2 {
+  font-size: 1.5em;
+}
+
+
 
 .image-container::before {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 10%;
+    right:10%;
     top: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.5);
 }
+
+
 
 .image-container {
     position: relative;
@@ -111,9 +128,7 @@
 
 
 /*MAIN*/
-.main-info-container {
-    display: none;
-}
+
 
 /*CARDS*/
 

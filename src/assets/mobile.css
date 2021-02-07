@@ -27,6 +27,17 @@
     flex: 2;
 }
 
+
+/*MAIN*/
+
+.main-info-container {
+  text-align: center;
+}
+
+.main-info-container > p {
+  font-size: 1.25em;
+}
+
 /*CARDS*/
 .main-info-container {
     width: 90vw;

@@ -126,6 +126,10 @@ html, body {
 
 /*BANNER*/
 
+.mobile-title {
+  display: none;
+}
+
 .banner {
     display: flex;
     height: 40vh;
