@@ -6,7 +6,7 @@
   <meta name="description"
     content="Lounari on sovellus, joka etsii lähellä olevat lounaspaikat, ja näyttää niiden päivittäiset ruokalistat.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Viikko 3 leiska</title>
+  <title>Viikko 4</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
@@ -78,33 +78,42 @@
 
       <div class="cards-container">
         <article class="card" id="card1">
+          <div class="card-img-container">
+            <img src="assets/sodexo.jpg">
+          </div>
 
           <div class="card-info-container">
-            <h2>Sodexo</h2>
-            <div class="card-location-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-map-pin">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <div class="location">500m</div>
+            <div class="card-title-container">
+              <h2>Sodexo</h2>
+              <div class="card-location-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-map-pin">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <div class="location">500m</div>
+              </div>
             </div>
-
           </div>
         </article>
         <article class="card" id="card2">
+          <div class="card-img-container">
+            <img src="assets/fazer.png">
+          </div>
 
           <div class="card-info-container">
-            <h2>Fazer</h2>
-            <div class="card-location-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-map-pin">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <div class="location">500m</div>
+            <div class="card-title-container">
+              <h2>Fazer</h2>
+              <div class="card-location-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-map-pin">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <div class="location">500m</div>
+              </div>
             </div>
 
           </div>
@@ -135,13 +144,16 @@
       document.querySelector('.mobile-icon-container').addEventListener('click', () => {
         const topNav = document.querySelector('.topnav');
         const navList = document.querySelector('.nav-items');
+        const banner = document.querySelector('.banner');
         if (topNav.className === 'topnav') {
           topNav.className += ' mobile';
           navList.className += ' mobile';
+          banner.className += ' mobile';
 
         } else {
           topNav.className = 'topnav';
           navList.className = 'nav-items';
+          banner.className = 'banner';
         }
       });
     </script>

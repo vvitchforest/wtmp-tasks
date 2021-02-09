@@ -46,8 +46,17 @@ main > h1 {
 
 /*CARDS*/
 
-.card-info-container > h2 {
+.card-title-container {
+  justify-content: space-between;
+}
+
+.card-title-container > h2 {
   font-size: 1.25em;
+}
+
+.card-img-container > img {
+  height: 100px;
+  width: 100px;
 }
 
 .card-location-container > svg {

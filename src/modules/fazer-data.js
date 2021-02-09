@@ -3,15 +3,17 @@ date.setFullYear(date.getFullYear() - 1);
 date = date.toISOString().split('T')[0];
 console.log(date);
 
-const weeklyUrlFi = `https://www.fazerfoodco.fi/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=${date}`;
-const weeklyUrlEn = `https://www.fazerfoodco.fi/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=${date}`;
+import {fazerProxyUrl} from "../settings";
+const weeklyUrlFi = `${fazerProxyUrl}/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=${date}`;
+const weeklyUrlEn = `${fazerProxyUrl}/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=${date}`;
 
 
-const parseMenu = (menuData) => {
+
+const parseMenu = (menuData, dayOfTheWeek) => {
   let meals = [];
   if (menuData.LunchMenus != null && menuData.LunchMenus.length > 0) {
     console.log(menuData);
-    menuData.LunchMenus[0].SetMenus.forEach((setMenu) => {
+    menuData.LunchMenus[dayOfTheWeek].SetMenus.forEach((setMenu) => {
       meals.push(setMenu);
     });
   }
@@ -37,10 +39,16 @@ const joinMeals = (parsedMenu, lang) => {
   return coursesArray;
 };
 
-const getDailyMenu = (lang, data) => {
+const getDailyMenu = (lang, data, dayOfTheWeek) => {
+
+  dayOfTheWeek--;
+  if(dayOfTheWeek === -1) {
+    dayOfTheWeek = 0;
+  }
+
   return (lang === 'fi') ?
-    joinMeals(parseMenu(data), 'fi') :
-    joinMeals(parseMenu(data), 'en');
+    joinMeals(parseMenu(data, dayOfTheWeek), 'fi') :
+    joinMeals(parseMenu(data, dayOfTheWeek), 'en');
 };
 
 const FazerData = { getDailyMenu, weeklyUrlFi, weeklyUrlEn };

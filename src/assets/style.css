@@ -253,7 +253,6 @@ main > h1 {
 /**CARDS*/
 .card {
     display: flex;
-    flex-direction: column;
     border: none;
     border-radius: 0.5em;
     padding: 1.5em;
@@ -262,22 +261,37 @@ main > h1 {
     box-shadow: 2px 3px 15px var(--greymist);
 }
 
+.card-img-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.card-img-container > img {
+    height: 125px;
+    width: 125px;
+    border-radius: 50%;
+}
+
 
 .card-info-container {
+    flex: 4;
     position: relative;
     margin-left: 1em;
 
 }
 
-.card-info-container > h2 {
-    font-weight: 900;
-    font-size: 1.3125em;
+.card-title-container {
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 900;
 }
 
+
 .card-location-container {
-    position: absolute;
-    right: 0;
-    top: 0.125em;
     display: flex;
 }
 
@@ -291,7 +305,7 @@ main > h1 {
 
 .location {
     font-weight: 400;
-    font-size: 0.875em;
+    font-size: 1em;
     padding: 0.25em;
 }
 
@@ -302,7 +316,8 @@ main > h1 {
 
 .card-menu-container > li {
     font-weight: 400;
-    font-size: 1em;
+    font-size: 1.12em;
+    line-height: 1.6;
 
 }
 
@@ -320,7 +335,7 @@ main > h1 {
     color: white;
     outline: none;
     box-shadow: 2px 5px 10px var(--greymist);
-   cursor: pointer;
+    cursor: pointer;
 
 }
 

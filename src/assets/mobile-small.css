@@ -16,6 +16,7 @@
     width: 100vw;
     height: 4em;
     padding: 0 2em;
+    transition: height 10s ease-in-out;
 }
 
 .topnav a {
@@ -29,12 +30,19 @@
 
 .nav-items.mobile {
   margin-top: 4em;
+
 }
 
 .topnav.mobile {
-  position: relative;
   height: auto;
   padding-bottom: 1em;
+
+  position: absolute;
+  width: 100%;
+  top:0;
+  z-index:10;
+  margin:0;
+  overflow:hidden;
 }
 
 .topnav.mobile a {
@@ -71,13 +79,16 @@
 .search-input, #search-btn {
     border: none;
     margin-top: 0.5em;
+
 }
-
-
 
 /*BANNER*/
 .banner {
     height: 30vh;
+}
+
+.banner.mobile {
+  margin-top: 4em;
 }
 
 .heading-container, .triangle {
@@ -107,8 +118,6 @@
 .mobile-title > h2 {
   font-size: 1.5em;
 }
-
-
 
 .image-container::before {
     content: "";

@@ -1,4 +1,6 @@
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+//const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+import {networkProxyUrl} from "../settings";
 
 /**
  *
@@ -10,7 +12,7 @@ const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 const fetchGet = async (url, useProxy = false) => {
   let response;
   try {
-    response = await fetch(`${useProxy ? proxyUrl : ''}${url}`);
+    response = await fetch(`${useProxy ? networkProxyUrl : ''}${url}`);
     if (!response.ok) {
       throw new Error(`HTTP error ${response.status} ${response.statusText}`);
     }

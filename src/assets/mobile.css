@@ -52,37 +52,15 @@
 .card {
     width: 90vw;
     flex-direction: column;
-}
-
-.card-info-container > h2 {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    font-size: 1.5em;
-}
-
-.img-container {
+    align-items: center;
     padding-bottom: 2em;
 }
 
-.img-container > img {
-    border-radius: 50%;
+.card-title-container {
+ justify-content: space-evenly;
+ padding-top: 1em;
 }
 
-.card-menu-container {
-    padding-top: 5em;
-}
-
-.card-menu-container > li {
-    font-size: 1.25em;
-}
-
-.card-location-container {
-    right: 0;
-    top: 0;
-    margin-right: 1em;
-}
 
 .card-location-container > svg {
     width: 1.5em;
@@ -92,6 +70,10 @@
 .location {
     font-size: 1.25em;
     padding-left: 0.5em;
+}
+
+#add-restaurant-container {
+  align-items: flex-start;
 }
 
 #add-restaurant-btn {
