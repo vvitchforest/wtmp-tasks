@@ -1,16 +1,15 @@
-/*if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
-  });
-}*/
+
 
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
-import { fetchGet } from './modules/network';
+
+const today = new Date().toISOString().split('T')[0];
+console.log(today);
+
+let parsedMenu;
+let parsedMenuFazer;
+let parsedSodexoMenuEn;
+let parsedFazerMenuEn;
 
 const menuCard = document.querySelector('#card1 .card-info-container');
 const menuCardFazer = document.querySelector('#card2 .card-info-container');
@@ -109,45 +108,63 @@ const showRandomCourse = (card, list, menuFi, menuEn) => {
   list.appendChild(listItem);
 };
 
-const init = async () => {
-  menuCard.classList.toggle('fin');
-  menuCardFazer.classList.toggle('fin');
-  const currentDay = new Date().getDay();
-  console.log(currentDay);
-  let dailyMenuJson;
-  let weeklyMenuJsonFi;
-  let weeklyMenuJsonEn;
-
+const loadData = async() => {
   try {
-    dailyMenuJson = await fetchGet(SodexoData.dailyUrl);
-    createMenu(SodexoData.getMenu('fi', dailyMenuJson), menuList);
+    parsedMenu = await SodexoData.getMenu('fi', today);
+    createMenu(parsedMenu, menuList);
   }
   catch (error){
     console.error(error);
   }
 
   try {
-    weeklyMenuJsonFi = await fetchGet(FazerData.weeklyUrlFi);
-    createMenu(FazerData.getDailyMenu('fi', weeklyMenuJsonFi, currentDay ), menuListFazer);
-    weeklyMenuJsonEn = await fetchGet(FazerData.weeklyUrlEn);
+    parsedMenuFazer = await FazerData.getDailyMenu('fi', '2020-02-12');
+    createMenu(parsedMenuFazer, menuListFazer);
   } catch (error){
     console.error(error);
   }
 
+  try {
+    parsedSodexoMenuEn = await SodexoData.getMenu('en', today);
+    parsedFazerMenuEn = await FazerData.getDailyMenu('en', '2020-02-12');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const serviceWorker = () => {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+};
+
+const init = () => {
+  menuCard.classList.toggle('fin');
+  menuCardFazer.classList.toggle('fin');
+
+  loadData();
+
   languageBtn.addEventListener('click', () => {
-    changeLanguage(menuCard, menuList, SodexoData.getMenu('fi', dailyMenuJson), SodexoData.getMenu('en', dailyMenuJson));
-    changeLanguage(menuCardFazer, menuListFazer, FazerData.getDailyMenu('fi', weeklyMenuJsonFi, currentDay) ,FazerData.getDailyMenu('en', weeklyMenuJsonEn, currentDay));
+    changeLanguage(menuCard, menuList, parsedMenu, parsedSodexoMenuEn);
+    changeLanguage(menuCardFazer, menuListFazer, parsedMenuFazer, parsedFazerMenuEn);
   });
 
   sortBtn.addEventListener('click', () => {
-    showSortedMenu(menuCard, menuList, SodexoData.getMenu('fi', dailyMenuJson), SodexoData.getMenu('en', dailyMenuJson));
-    showSortedMenu(menuCardFazer, menuListFazer, FazerData.getDailyMenu('fi', weeklyMenuJsonFi, currentDay) ,FazerData.getDailyMenu('en', weeklyMenuJsonEn, currentDay));
+    showSortedMenu(menuCard, menuList, parsedMenu, parsedSodexoMenuEn);
+    showSortedMenu(menuCardFazer, menuListFazer, parsedMenuFazer, parsedFazerMenuEn);
   });
-  randomBtn.addEventListener('click', () => {
-    showRandomCourse(menuCard, menuList, SodexoData.getMenu('fi', dailyMenuJson), SodexoData.getMenu('en', dailyMenuJson));
-    showRandomCourse(menuCardFazer, menuListFazer, FazerData.getDailyMenu('fi', weeklyMenuJsonFi, currentDay) ,FazerData.getDailyMenu('en', weeklyMenuJsonEn, currentDay));
 
+  randomBtn.addEventListener('click', () => {
+    showRandomCourse(menuCard, menuList, parsedMenu, parsedSodexoMenuEn);
+    showRandomCourse(menuCardFazer, menuListFazer, parsedMenuFazer, parsedFazerMenuEn);
   });
+  //serviceWorker();
 };
 
 init();

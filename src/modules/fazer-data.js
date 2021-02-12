@@ -4,10 +4,10 @@ date = date.toISOString().split('T')[0];
 console.log(date);
 
 import {fazerProxyUrl} from "../settings";
-const weeklyUrlFi = `${fazerProxyUrl}/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=${date}`;
-const weeklyUrlEn = `${fazerProxyUrl}/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=${date}`;
+import { fetchGet } from './network';
 
-
+const weeklyUrlFi = `${fazerProxyUrl}/api/restaurant/menu/week?language=fi&restaurantPageId=270540&weekDate=`;
+const weeklyUrlEn = `${fazerProxyUrl}/api/restaurant/menu/week?language=en&restaurantPageId=270540&weekDate=`;
 
 const parseMenu = (menuData, dayOfTheWeek) => {
   let meals = [];
@@ -39,18 +39,23 @@ const joinMeals = (parsedMenu, lang) => {
   return coursesArray;
 };
 
-const getDailyMenu = (lang, data, dayOfTheWeek) => {
+const getDailyMenu = async (lang, date) => {
+  let dayOfTheWeek = new Date().getDay();
 
   dayOfTheWeek--;
   if(dayOfTheWeek === -1) {
-    dayOfTheWeek = 0;
+    dayOfTheWeek = 6;
   }
 
-  return (lang === 'fi') ?
-    joinMeals(parseMenu(data, dayOfTheWeek), 'fi') :
-    joinMeals(parseMenu(data, dayOfTheWeek), 'en');
+  let menuData;
+  try {
+    menuData = await fetchGet(`${lang == 'fi' ? weeklyUrlFi:weeklyUrlEn}${date}`);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+  return joinMeals(parseMenu(menuData, dayOfTheWeek));
 };
 
-const FazerData = { getDailyMenu, weeklyUrlFi, weeklyUrlEn };
+const FazerData = { getDailyMenu };
 
 export default FazerData;
