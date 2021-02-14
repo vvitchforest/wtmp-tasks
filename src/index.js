@@ -1,21 +1,15 @@
 
-
 import SodexoData from './modules/sodexo-data';
 import FazerData from './modules/fazer-data';
 
 const today = new Date().toISOString().split('T')[0];
 console.log(today);
 
-let parsedMenu;
-let parsedMenuFazer;
-let parsedSodexoMenuEn;
-let parsedFazerMenuEn;
+//let languageSetting = 'fi';
 
 const menuCard = document.querySelector('#card1 .card-info-container');
 const menuCardFazer = document.querySelector('#card2 .card-info-container');
 const languageBtn = document.querySelector('.language-btn');
-const randomBtn = document.querySelector('.random-btn');
-const sortBtn = document.querySelector('.sort-btn');
 const btnContainer = document.querySelector('#btn-container');
 btnContainer.classList.add('btn-container');
 const menuList = document.createElement('ul');
@@ -24,6 +18,34 @@ const menuListFazer = document.createElement('ul');
 menuListFazer.classList.add('card-menu-container');
 menuCard.appendChild(menuList);
 menuCardFazer.appendChild(menuListFazer);
+const modeToggle = document.getElementById('checkbox');
+
+let userSettings = {
+  colorTheme: 'light',
+  lang: 'fi'
+};
+
+
+/**
+ * Updates user settings
+ */
+const updateUserSettings = () => {
+  localStorage.setItem('userConfig', JSON.stringify(userSettings));
+};
+
+/**
+ * Switches colour theme
+ */
+
+const switchTheme = (event) => {
+  if(event.target.checked) {
+    userSettings.colorTheme = 'dark';
+  } else {
+   userSettings.colorTheme = 'light';
+  }
+  document.querySelector('body').setAttribute('data-theme', userSettings.colorTheme);
+  updateUserSettings();
+};
 
 /**
  * Creates lunch menu list items into menu list
@@ -43,90 +65,28 @@ const createMenu = (menu, list) => {
  * Switches language fi/en in Sodexo menu
  */
 
-const changeLanguage = (card, list, menuFi, menuEn) => {
-  card.classList.toggle('fin');
-  card.classList.toggle('eng');
-  if (card.classList.contains('eng')) {
-    createMenu(menuEn, list);
+const switchLanguage = () => {
+  if (userSettings.lang === 'fi') {
+    userSettings.lang = 'en';
   } else {
-    createMenu(menuFi, list);
+    userSettings.lang = 'fi';
   }
-  card.appendChild(list);
+  updateUserSettings();
+  loadData();
 };
 
-/**
- *
- * @param {Array} menu
- * @param {string} order
- * @returns Soreted menu array
- */
-const sortAlphabetically = (menu, order) => {
-  let sortedArray;
-  if (order === 'asc') {
-    sortedArray = menu.sort();
-  } else if (order === 'desc') {
-    sortedArray = menu.sort();
-    sortedArray.reverse();
-  }
-  return sortedArray;
-};
-
-/**
- * Shows alphabetically sorted menu
- */
-
-const showSortedMenu = (card, list, menuFi, menuEn) => {
-  if (card.classList.contains('fin')) {
-    createMenu(sortAlphabetically(menuFi, 'asc'), list);
-  } else {
-    createMenu(sortAlphabetically(menuEn, 'asc'), list);
-  }
-};
-
-/**
- * Selects random dish from lunch menu
- * @param {Array} menu
- * @returns random dish name
- */
-const randomCourse = (menu) => {
-  const random = menu[Math.floor(Math.random() * menu.length)];
-  return random;
-};
-
-/**
- * Prints random dish into html card
- */
-
-const showRandomCourse = (card, list, menuFi, menuEn) => {
-  list.innerHTML = '';
-  let listItem = document.createElement('li');
-  if (card.classList.contains('fin')) {
-    listItem.innerHTML = randomCourse(menuFi);
-  } else {
-    listItem.innerHTML = randomCourse(menuEn);
-  }
-  list.appendChild(listItem);
-};
-
-const loadData = async() => {
+const loadData = async () => {
   try {
-    parsedMenu = await SodexoData.getMenu('fi', today);
+    const parsedMenu = await SodexoData.getMenu(userSettings.lang, today);
     createMenu(parsedMenu, menuList);
   }
-  catch (error){
+  catch (error) {
     console.error(error);
   }
-
   try {
-    parsedMenuFazer = await FazerData.getDailyMenu('fi', '2020-02-12');
-    createMenu(parsedMenuFazer, menuListFazer);
-  } catch (error){
-    console.error(error);
-  }
-
-  try {
-    parsedSodexoMenuEn = await SodexoData.getMenu('en', today);
-    parsedFazerMenuEn = await FazerData.getDailyMenu('en', '2020-02-12');
+    const parsedMenu = await FazerData.getDailyMenu(userSettings.lang, today);
+    console.log(parsedMenu);
+    createMenu(parsedMenu, menuListFazer);
   } catch (error) {
     console.error(error);
   }
@@ -145,26 +105,19 @@ const serviceWorker = () => {
 };
 
 const init = () => {
-  menuCard.classList.toggle('fin');
-  menuCardFazer.classList.toggle('fin');
+  //Load from local storage if exists or use default user settings
+  if(localStorage.getItem('userConfig')) {
+    userSettings = JSON.parse(localStorage.getItem("userConfig"));
+    document.querySelector('body').setAttribute('data-theme', userSettings.colorTheme);
+    if(userSettings.colorTheme === 'dark') {
+      modeToggle.checked = true;
+    }
+  }
 
   loadData();
-
-  languageBtn.addEventListener('click', () => {
-    changeLanguage(menuCard, menuList, parsedMenu, parsedSodexoMenuEn);
-    changeLanguage(menuCardFazer, menuListFazer, parsedMenuFazer, parsedFazerMenuEn);
-  });
-
-  sortBtn.addEventListener('click', () => {
-    showSortedMenu(menuCard, menuList, parsedMenu, parsedSodexoMenuEn);
-    showSortedMenu(menuCardFazer, menuListFazer, parsedMenuFazer, parsedFazerMenuEn);
-  });
-
-  randomBtn.addEventListener('click', () => {
-    showRandomCourse(menuCard, menuList, parsedMenu, parsedSodexoMenuEn);
-    showRandomCourse(menuCardFazer, menuListFazer, parsedMenuFazer, parsedFazerMenuEn);
-  });
-  //serviceWorker();
+  modeToggle.addEventListener('change', switchTheme, false);
+  languageBtn.addEventListener('click', switchLanguage);
+  serviceWorker();
 };
 
 init();

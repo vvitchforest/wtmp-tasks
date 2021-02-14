@@ -1,5 +1,6 @@
 :root {
     --dustyrose: #cca2a1;
+    --shadowrose: #916867;
     --dusk: #202332;
     --brick: #943847;
     --charcoal: #343A40;
@@ -59,6 +60,10 @@
 .search-input {
     padding-left: 1em;
 
+}
+
+.slider-theme {
+  box-shadow: 2px 4px 7px var(--shadowrose);
 }
 
 .mobile-icon-container {

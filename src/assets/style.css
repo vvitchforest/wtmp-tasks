@@ -9,6 +9,7 @@
 
 :root {
     --dustyrose: #cca2a1;
+    --shadowrose: #916867;
     --dusk: #202332;
     --brick: #943847;
     --charcoal: #343A40;
@@ -17,9 +18,34 @@
     --sky: #1186B0;
     --pistachio: #a1cca5;
     --moss: #355F35;
+    --light: #FFFFFF;
+
+
+
+    --bg-color: var(--light);
+    --text-color: var(--charcoal)
+    --navbar-title: var(--dusk);
+    --btn-hover: var(--dusk);
+    --shadow: var(--greymist);
 }
 
-/*RESET*/
+[data-theme="dark"] {
+
+  --dusk: #202332;
+  --darkness: #1a1c27;
+  --light: #FFFFFF;
+
+
+  --bg-color: var(--dusk);
+  --text-color: var(--light);
+  --navbar-title: var(--light);
+  --btn-hover: var(--greymist);
+  --shadow: var(--darkness);
+
+
+
+}
+
 html, body {
     overflow-x: hidden;
 }
@@ -30,12 +56,22 @@ html, body {
     box-sizing: border-box;
 }
 
+ body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.4s ease-in-out;
+
+}
+
+
+
+
 /**NAVBAR**/
 .topnav {
     display: flex;
     width: 80vw;
     margin: auto;
-    padding: 2em 0;
+    padding: 2em 1em 2em 0;
     overflow: hidden;
 }
 
@@ -62,7 +98,7 @@ html, body {
     padding: 0.5em;
     text-decoration: none;
     border-radius: 0.25em;
-    color: var(--dusk);
+    color: var(--navbar-title);
 }
 
 .nav-items li > a:hover {
@@ -121,6 +157,77 @@ html, body {
 
 #search-btn > svg:hover {
     color: var(--brick);
+}
+
+.theme-switch-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: "Lato", sans-serif;
+}
+
+.theme-switch {
+  position: relative;
+  width: 3.125em;
+  height: 1.75em;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider-theme {
+  background-color: #cccc;
+  box-shadow: 2px 4px 7px var(--shadow);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-radius: 1.25em;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+
+}
+
+input:checked + .slider-theme {
+  background-color: var(--greymist);
+}
+
+.slider-theme::before {
+  content: '';
+  background-color: #fff;
+  position: absolute;
+  width: 1.25em;
+  height: 1.25em;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  transition: all 0.4s ease-in-out;
+}
+
+input:checked + .slider-theme::before {
+  transform: translateX(1.375em);
+}
+
+.slider-theme::after {
+  content: '';
+  background-image: url('moon-outline.svg');
+  background-repeat: no-repeat;
+  display: block;
+  color: #fff;
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  left: 80%;
+  top: 50%;
+  transform: translate(-80%, -50%);
+  filter: brightness(0.5) sepia(1) hue-rotate(-70deg) saturate(5);
+}
+
+input:checked + .slider-theme::after {
+  display: none;
 }
 
 
@@ -192,7 +299,6 @@ main {
     align-items: center;
     padding: 2em;
     font-family: 'Lato', sans-serif;
-    color: var(--charcoal);
 }
 
 main > h1 {
@@ -239,14 +345,14 @@ main > h1 {
   border-radius: 0.5em;
   border: none;
   outline: none;
-  box-shadow: 2px 5px 10px var(--greymist);
+  box-shadow: 2px 5px 10px var(--shadow);
   cursor: pointer;
 
 }
 
 .language-btn:hover, .language-btn:active, .language-btn:focus, .random-btn:hover, .random-btn:active,
 .random-btn:focus, .sort-btn:hover, .sort-btn:active, .sort-btn:focus {
-  background-color: var(--dusk);
+  background-color: var(--btn-hover);
 }
 
 
@@ -258,7 +364,7 @@ main > h1 {
     padding: 1.5em;
     width: 38vw;
     margin-bottom: 2em;
-    box-shadow: 2px 3px 15px var(--greymist);
+    box-shadow: 2px 3px 15px var(--shadow);
 }
 
 .card-img-container {
@@ -334,13 +440,13 @@ main > h1 {
     background-color: var(--sky);
     color: white;
     outline: none;
-    box-shadow: 2px 5px 10px var(--greymist);
+    box-shadow: 2px 5px 10px var(--shadow);
     cursor: pointer;
 
 }
 
 #add-restaurant-btn:hover, #add-restaurant-btn:active, #add-restaurant-btn:focus {
-    background-color: var(--dusk);
+    background-color: var(--btn-hover);
 
 }
 
